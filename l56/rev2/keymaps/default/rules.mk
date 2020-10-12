@@ -21,3 +21,7 @@ LTO_ENABLE = no  # if firmware size over limit, try this option
 # convert Helix-specific options (that represent combinations of standard options)
 #   into QMK standard options.
 include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))
+
+# MIDI
+MIDI_ENABLE = yes
+

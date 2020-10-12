@@ -63,15 +63,18 @@ enum custom_keycodes {
   MIDI,
 
 	MI_NOTEMIN,
-	MI_L01 = MI_NOTEMIN, MI_L02, MI_L03, MI_L04, MI_L05, MI_L06,
-	MI_L07, MI_L08, MI_L09, MI_L10, MI_L11, MI_L12,
-
-	MI_001,// = MI_NOTEMIN,
-	MI_002, MI_003, MI_004, MI_005, MI_006,
-	MI_007, MI_008, MI_009, MI_010, MI_011, MI_012,
-
-	MI_H01, MI_H02, MI_H03, MI_H04, MI_H05, MI_H06,
-	MI_H07, MI_H08, MI_H09, MI_H10, MI_H11, MI_H12,
+	MI_NOTE001 = MI_NOTEMIN,
+	MI_NOTE002,
+	MI_NOTE003,
+	MI_NOTE004,
+	MI_NOTE005,
+	MI_NOTE006,
+	MI_NOTE007,
+	MI_NOTE008,
+	MI_NOTE009,
+	MI_NOTE010,
+	MI_NOTE011,
+	MI_NOTE012,
 };
 
 enum macro_keycodes {
@@ -188,7 +191,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 // 追加したコードここまで }}}
 // MIDI {{{
-      case MI_001 ... MI_012:
+      case MI_NOTE001 ... MI_NOTE012:
         if (record->event.pressed) {
           uint8_t channel = 0;
           uint8_t note = keycode - MI_NOTEMIN;
