@@ -36,6 +36,7 @@ enum layer_number {
 	_YSTRP_SHIFT,
 	_LEFT,
 	_RIGHT,
+	_NUM,
 	_SYMBOL,
 	_MIDI,
 };
@@ -57,6 +58,7 @@ enum custom_keycodes {
   LEFT,
   RIGHT,
   SYMBOL,
+  NUM,
   ADJUST,
   EISU,
   KANA,
@@ -172,6 +174,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case NUM:
+      if (record->event.pressed) {
+        layer_on(_NUM);
+      } else {
+        layer_off(_NUM);
+      }
+      return false;
+      break;
     case ADJUST:
         if (record->event.pressed) {
           layer_on(_ADJUST);
@@ -186,7 +196,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-// 追加したコードここまで }}}
 // MIDI {{{
       case MI_001 ... MI_012:
         if (record->event.pressed) {
@@ -202,6 +211,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       return false;
 // MIDI }}}
+// 追加したコードここまで }}}
 // 元のコード {{{
 /*
     case QWERTY:

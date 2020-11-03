@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    xcd0 // Yushakobo
-#define PRODUCT         l56 // Helix Beta
+#define PRODUCT         liquid56 // Helix Beta
 #define DESCRIPTION     A split handwired keyboard. // A split keyboard for the cheap makers
 
 #define TAPPING_FORCE_HOLD

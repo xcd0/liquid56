@@ -1,6 +1,6 @@
 #!/bin/bash
 
-keyboard_name=l56
+keyboard_name=liquid56
 
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 keyboard_dir=${SCRIPT_DIR}/${keyboard_name}/
