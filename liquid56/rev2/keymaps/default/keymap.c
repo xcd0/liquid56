@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+// {{{
 #include "bootloader.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
@@ -23,7 +24,7 @@ extern MidiDevice midi_device;
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
+// entirely and just use numbers. }}}
 enum layer_number {
     _QWERTY = 0,
 //    _COLEMAK,
@@ -55,27 +56,16 @@ enum custom_keycodes {
 
   QWERTY = SAFE_RANGE,
   YSTRP,
-  LEFT,
-  RIGHT,
-  SYMBOL,
-  NUM,
-  ADJUST,
-  EISU,
-  KANA,
-  MIDI,
+  LEFT, RIGHT, SYMBOL, NUM, ADJUST,
+  EISU, KANA,
 
-	MI_NOTEMIN,
-	MI_L01 = MI_NOTEMIN, MI_L02, MI_L03, MI_L04, MI_L05, MI_L06,
-	MI_L07, MI_L08, MI_L09, MI_L10, MI_L11, MI_L12,
-
-	MI_001,// = MI_NOTEMIN,
-	MI_002, MI_003, MI_004, MI_005, MI_006,
-	MI_007, MI_008, MI_009, MI_010, MI_011, MI_012,
-
-	MI_H01, MI_H02, MI_H03, MI_H04, MI_H05, MI_H06,
-	MI_H07, MI_H08, MI_H09, MI_H10, MI_H11, MI_H12,
+	MIDI, MI_UP, MI_DOWN, MI_T_UP, MI_T_DN, MI_NOTEMIN,
+	MI_L01 = MI_NOTEMIN, MI_L02, MI_L03, MI_L04, MI_L05, MI_L06, MI_L07, MI_L08, MI_L09, MI_L10, MI_L11, MI_L12,
+	MI_001, MI_002, MI_003, MI_004, MI_005, MI_006, MI_007, MI_008, MI_009, MI_010, MI_011, MI_012,
+	MI_H01, MI_H02, MI_H03, MI_H04, MI_H05, MI_H06, MI_H07, MI_H08, MI_H09, MI_H10, MI_H11, MI_H12,
 };
 
+// {{{
 enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
@@ -116,6 +106,17 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
     layer_off(layer3);
   }
 }
+
+//}}}
+//
+// midi のノート番号をいい感じに設定する
+// 81鍵のピアノで一番低い音C1は24 高い音C8は108 真ん中のドC4は60 ラA4は69
+// 初期状態でMI_001を押されたとき C4の60を出力したい ( MI_001 - MI_NOTEMIN = 12 )
+// note = keycode - MI_NOTEMIN + midi_base_offset が 60になるようにmidi_base_offsetを48にする
+#define MIDI_INIT_OFFSET 48
+uint8_t midi_base_offset = MIDI_INIT_OFFSET; // C4のあるオクターブを初期値にする
+bool midi_tmp_offset_u = 0; // 押している間だけオフセット
+bool midi_tmp_offset_d = 0; // 押している間だけオフセット
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -190,28 +191,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    case MIDI:
-      if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_MIDI);
-      }
-      return false;
-      break;
-// MIDI {{{
-      case MI_001 ... MI_012:
-        if (record->event.pressed) {
-          uint8_t channel = 0;
-          uint8_t note = keycode - MI_NOTEMIN;
-          uint8_t velocity = 127;
-          midi_send_noteon(&midi_device, channel, note, velocity);
-        }else {
-          uint8_t channel = 0;
-          uint8_t note = keycode - MI_NOTEMIN;
-          uint8_t velocity = 0;
-          midi_send_noteoff(&midi_device, channel, note, velocity);
-        }
-      return false;
-// MIDI }}}
 // 追加したコードここまで }}}
+	case MIDI:
+		if( record->event.pressed ) {
+			persistent_default_layer_set(1UL<<_MIDI);
+			midi_base_offset =  MIDI_INIT_OFFSET; // オクターブをリセット
+		} return false; break;
+		case MI_UP:   if( midi_base_offset < 120 ){ midi_base_offset+=12; } return false; break;
+		case MI_DOWN: if( midi_base_offset > 12  ){ midi_base_offset-=12; } return false; break;
+		case MI_T_UP: midi_tmp_offset_u = record->event.pressed;  return false; break;
+		case MI_T_DN: midi_tmp_offset_d = record->event.pressed;  return false; break;
+	/*
+		MIDI, MI_UP, MI_DOWN, MI_T_UP, MI_T_DN, MI_NOTEMIN,
+		MI_L01 = MI_NOTEMIN, MI_L02, MI_L03, MI_L04, MI_L05, MI_L06, MI_L07, MI_L08, MI_L09, MI_L10, MI_L11, MI_L12,
+		MI_001, MI_002, MI_003, MI_004, MI_005, MI_006, MI_007, MI_008, MI_009, MI_010, MI_011, MI_012,
+		MI_H01, MI_H02, MI_H03, MI_H04, MI_H05, MI_H06, MI_H07, MI_H08, MI_H09, MI_H10, MI_H11, MI_H12,
+	*/
+		// Lxxは１つ下のオクターブ
+		// 0xxは基本のオクターブ   基準
+		// Hxxは１つ上のオクターブ
+		case MI_L01 ... MI_L12:   // 0 ~ 11
+		case MI_001 ... MI_012:   // 11 ~ 23
+		case MI_H01 ... MI_H12: { // 24 ~ 35
+				int16_t note = keycode - MI_NOTEMIN + midi_base_offset;
+				if( midi_tmp_offset_u ) note += 12; if( midi_tmp_offset_d ) note -= 12; if( note < 0 || note > 127 ){ return false; }
+				if( record->event.pressed ) { midi_send_noteon( &midi_device, 0, (uint8_t)note, 127 ); }else{ midi_send_noteoff( &midi_device, 0, (uint8_t)note, 0 ); }
+				return false; break;
+		}
+
 // 元のコード {{{
 /*
     case QWERTY:

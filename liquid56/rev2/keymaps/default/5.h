@@ -14,15 +14,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+-------+-------+-------+-------+-------+-------+                                  |-------+-------+-------+-------+-------+-------+-------|
    * |Insert|       |   A   |   S   |   D   |   F   |   G   |                                  |   H   |   J   |   K   |   L   |   ;   |   :   | Enter |
    * |------+-------+-------+-------+-------+-------+-------+-------+-------.  ,-------+-------+-------+-------+-------+-------+-------+-------+-------|
-   * | Eisu |       |   Z   |   X   |   C   |   V   |   B   |       |       |  |       |       |   N   |   M   |   ,   |   .   |   /   |   \   | Kana  |
+   * | Eisu |       |   Z   |   X   |   C   |   V   |   B   | NUM   | MIDI  |  |       |       |   N   |   M   |   ,   |   .   |   /   |   \   | Kana  |
    * `------------------------------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------------------------------'
-   *                                |  Home | Ctrl  | Space | Shift |       |  |Adjust | Bkspc | Enter |Delete |  End  |
+   *                                |  Home | Ctrl  | Space | Shift |   L   |  |   R   | Bkspc | Enter |Delete |  End  |
    *                                `---------------------------------------'  `---------------------------------------'
    */
   [_QWERTY] = LAYOUT( \
       JP_ESC,  JP_TAB,  JP_Q,    JP_W,    JP_E,    JP_R,    JP_T,                   /**/                   JP_Y,    JP_U,    JP_I,    JP_O,    JP_P,    JP_AT,   JP_BSPC, \
       JP_INS,  _______, JP_A,    JP_S,    JP_D,    JP_F,    JP_G,                   /**/                   JP_H,    JP_J,    JP_K,    JP_L,    JP_SCLN, JP_COLN, JP_ENT,  \
-      KC_MHEN, _______, JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,     NUM, _______, /**/ _______, _______, JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH, JP_BKSL, KC_HENK, \
+      KC_MHEN, _______, JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,     NUM,    MIDI, /**/ _______, _______, JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH, JP_BKSL, KC_HENK, \
                                  JP_HOME, JP_LCTL, L_Q_S,   JP_SPC,  LEFT,          /**/          RIGHT,   JP_BSPC, JP_ENT,  SYMBOL,  JP_END \
       ),
   /* SHIFTを押してるとき レイヤーを切り替えちゃう */
@@ -41,13 +41,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+-------+-------+-------+-------+-------+-------+-------+-------.  ,-------+-------+-------+-------+-------+-------+-------+-------+-------|
    * | Eisu |       |   Z   |   X   |   C   |   V   |   B   |       |       |  |       |       |   N   |   M   |   ,   |   .   |   /   |   \   | Kana  |
    * `------------------------------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------------------------------'
-   *                                |  Home | Ctrl  | Space | Shift |       |  |Adjust | Bkspc | Enter |Delete |  End  |
+   *                                |  Home | Ctrl  | Space | Shift |   L   |  |   R   | Bkspc | Enter |Delete |  End  |
    *                                `---------------------------------------'  `---------------------------------------'
    */
   [_YSTRP] = LAYOUT( \
       JP_ESC,  JP_TAB,  JP_Q,    JP_W,    JP_E,    JP_R,    JP_T,                   /**/                   JP_Y,    JP_U,    JP_I,    JP_O,    JP_P,    JP_AT,   JP_BSPC, \
       JP_INS,  _______, JP_A,    JP_S,    JP_D,    JP_F,    JP_G,                   /**/                   JP_H,    JP_J,    JP_K,    JP_L,    JP_SCLN, JP_COLN, JP_ENT,  \
-      KC_MHEN, _______, JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,     NUM, _______, /**/ _______, _______, JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH, JP_BKSL, KC_HENK, \
+      KC_MHEN, _______, JP_Z,    JP_X,    JP_C,    JP_V,    JP_B,     NUM,    MIDI, /**/ _______, _______, JP_N,    JP_M,    JP_COMM, JP_DOT,  JP_SLSH, JP_BKSL, KC_HENK, \
                                  JP_HOME, JP_LCTL, L_Y_S,   JP_SPC,  LEFT,          /**/          RIGHT,   JP_BSPC, JP_ENT,  SYMBOL,  JP_END \
       ),
   /* SHIFTを押してるとき レイヤーを切り替えちゃう */
@@ -74,8 +74,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYMBOL] = LAYOUT( \
       JP_ESC,  JP_TAB,  JP_TILD, JP_UNDS, JP_DQT,  JP_QUOT, JP_GRV,                     /**/                    JP_AMPR, JP_LPRN, JP_LT,   JP_LCBR, JP_LBRC, JP_AT,   JP_BSPC, \
-      JP_INS,  _______, JP_PLUS, JP_MINS, JP_ASTR, JP_EQL,  JP_COLN,                    /**/                    JP_PIPE, JP_RPRN, JP_GT,   JP_RCBR, JP_RBRC, JP_COLN, JP_ENT,  \
-      KC_MHEN, _______, JP_EXLM, JP_QUES, JP_HASH, JP_DLR,  JP_PERC,     NUM, _______,  /**/  _______, _______, _______, JP_AT,   JP_CIRC, JP_COMM, JP_BKSL, _______, KC_HENK, \
+      JP_INS,  XXXXXXX, JP_PLUS, JP_MINS, JP_ASTR, JP_EQL,  JP_COLN,                    /**/                    JP_PIPE, JP_RPRN, JP_GT,   JP_RCBR, JP_RBRC, JP_COLN, JP_ENT,  \
+      KC_MHEN, XXXXXXX, JP_EXLM, JP_QUES, JP_HASH, JP_DLR,  JP_PERC,     NUM, XXXXXXX,  /**/  XXXXXXX, XXXXXXX, XXXXXXX, JP_AT,   JP_CIRC, JP_COMM, JP_BKSL, XXXXXXX, KC_HENK, \
                                  JP_HOME, JP_LCTL, JP_LSFT, JP_SPC,  JP_LALT,           /**/           JP_LGUI, JP_BSPC, JP_ENT,  JP_DEL,   JP_END \
       ),
 
@@ -93,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LEFT] = LAYOUT( \
       JP_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     /**/                   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  JP_BSPC, \
-      JP_INS,  _______, _______, _______, _______, QWERTY,  EEP_RST,                   /**/                   JP_LEFT, JP_DOWN, JP_UP,   JP_RGHT, _______, _______, JP_ENT,  \
-      KC_MHEN, _______, _______, _______, _______, YSTRP,   RESET,   _______, _______, /**/ _______, _______, _______, _______, _______, _______, _______, _______, KC_HENK, \
-                                 JP_HOME, JP_LCTL, L_Q_S,   JP_SPC,  _______,          /**/          RIGHT,   JP_BSPC, JP_ENT,  SYMBOL,  JP_END \
+      JP_INS,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QWERTY,  EEP_RST,                   /**/                   JP_LEFT, JP_DOWN, JP_UP,   JP_RGHT, XXXXXXX, XXXXXXX, JP_ENT,  \
+      KC_MHEN, XXXXXXX, XXXXXXX, XXXXXXX, MIDI,    YSTRP,   RESET,   XXXXXXX, XXXXXXX, /**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HENK, \
+                                 JP_HOME, JP_LCTL, L_Q_S,   JP_SPC,  XXXXXXX,          /**/          RIGHT,   JP_BSPC, JP_ENT,  SYMBOL,  JP_END \
       ),
 
   /* Right
@@ -113,18 +113,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_RIGHT] = LAYOUT( \
-      JP_ESC,  _______, _______, _______, _______, _______, _______,                   /**/                   _______, JP_BTN1, JP_BTN3, JP_BTN2, JP_WH_U, _______, JP_BSPC, \
-      JP_INS,  _______, _______, _______, _______, QWERTY, EEP_RST,                    /**/                   JP_MS_L, JP_MS_D, JP_MS_U, JP_MS_R, JP_WH_D, _______, JP_ENT,  \
-      KC_MHEN, _______, _______, _______, _______, YSTRP,   RESET,   _______, _______, /**/ _______, _______, _______, _______, _______, _______, _______, _______, KC_HENK, \
-                                 JP_HOME, JP_LCTL, L_Q_S,   JP_SPC,  LEFT,             /**/          _______, JP_BSPC, JP_ENT,  SYMBOL,  JP_END \
+      JP_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   /**/                   XXXXXXX, JP_BTN1, JP_BTN3, JP_BTN2, JP_WH_U, XXXXXXX, JP_BSPC, \
+      JP_INS,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QWERTY, EEP_RST,                    /**/                   JP_MS_L, JP_MS_D, JP_MS_U, JP_MS_R, JP_WH_D, XXXXXXX, JP_ENT,  \
+      KC_MHEN, XXXXXXX, XXXXXXX, XXXXXXX, MIDI,    YSTRP,   RESET,   XXXXXXX, XXXXXXX, /**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HENK, \
+                                 JP_HOME, JP_LCTL, L_Q_S,   JP_SPC,  LEFT,             /**/          XXXXXXX, JP_BSPC, JP_ENT,  SYMBOL,  JP_END \
       ),
 
 
   [_NUM] = LAYOUT( \
-      JP_ESC,  _______, _______, _______, _______, _______, _______,                   /**/                   _______, KC_7, KC_8, KC_9, _______, _______, JP_BSPC, \
-      JP_INS,  _______, _______, _______, _______, _______, _______,                   /**/                   _______, KC_4, KC_5, KC_6, _______, _______, JP_ENT,  \
-      KC_MHEN, _______, _______, _______, _______, _______, _______, _______, _______, /**/ _______, _______, KC_0,    KC_1, KC_2, KC_3, _______, _______, KC_HENK, \
-                                 JP_HOME, JP_LCTL, L_Q_S,   JP_SPC,  _______,          /**/          _______, JP_BSPC, JP_ENT,  SYMBOL,  JP_END \
+      JP_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   /**/                   XXXXXXX, KC_7, KC_8, KC_9, XXXXXXX, XXXXXXX, JP_BSPC, \
+      JP_INS,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   /**/                   XXXXXXX, KC_4, KC_5, KC_6, XXXXXXX, XXXXXXX, JP_ENT,  \
+      KC_MHEN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, /**/ XXXXXXX, XXXXXXX, KC_0,    KC_1, KC_2, KC_3, XXXXXXX, XXXXXXX, KC_HENK, \
+                                 JP_HOME, JP_LCTL, L_Q_S,   JP_SPC,  XXXXXXX,          /**/          XXXXXXX, JP_BSPC, JP_ENT,  SYMBOL,  JP_END \
       ),
 
   /* Adjust
@@ -143,32 +143,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_ADJUST] = LAYOUT( \
-      QWERTY,  _______, _______, _______, _______, _______, _______,                   /**/                   _______, _______, _______, _______, _______, _______, JP_BSPC, \
-      YSTRP,   _______, _______, _______, _______, _______, _______,                   /**/                   _______, _______, _______, _______, _______, _______, JP_ENT,  \
-      MIDI,    _______, _______, _______, _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______, _______, _______, _______, KC_HENK, \
+      QWERTY,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   /**/                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_BSPC, \
+      YSTRP,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   /**/                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_ENT,  \
+      MIDI,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, /**/ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HENK, \
                                  JP_HOME, JP_LCTL, L_Q_S,   JP_SPC,  LEFT,             /**/          RIGHT,   JP_BSPC, JP_ENT,  SYMBOL,  JP_END \
       ),
 
-
-  /* Right
-   * ,------------------------------------------------.                                      ,------------------------------------------------.
-   * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                                      |  F7  |  F8  |  F9  | F10  |  F11 |  F12 |      |
-   * |------+------+------+------+------+------+------|                                      |------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |                                      |      |M.L.Cl|M.M.Cl|M.R.Cl| WH.Up|      |      |
-   * |------+------+------+------+------+------+------+                                      |------+------+------+------+------+------+------|
-   * |      |      |      |      |      |Qwerty|EEPROM|                                      |M.Left|M.Down| M.Up |M.Rght| WH.Dn|      |      |
-   * |------+------+------+------+------+------+------+------+------.          ,------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |Ystrp |Reset |      |      |          |      |      |      |      |      |      |      |      |      |
-   * `------+------+------+---------------------------------------------.  ,------------------------------------------------------------------'
-   *                                 |      | Ctrl |Space |Shift |Adjust|  |      | BkSp |Enter |Delete|      |
-   *                                 `----------------------------------'  `----------------------------------'
-   */
-
   [_MIDI] = LAYOUT( \
-      QWERTY,  _______, _______, _______, _______, _______, _______,                   /**/                   _______, MI_009, MI_010, MI_011, MI_012, MI_H01,  _______, \
-      YSTRP,   _______, _______, _______, _______, _______, _______,                   /**/                   _______, MI_005, MI_006, MI_007, MI_008, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, /**/ _______, _______, MI_L12,  MI_001, MI_002, MI_003, MI_004, _______, _______, \
-                                 _______, _______, _______, _______, _______,          /**/          _______, _______, _______, _______, _______ \
+      QWERTY,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MI_UP,                     /**/                   XXXXXXX, MI_009,  MI_010,  MI_011,  MI_012, MI_H01,  MI_H02,  \
+      YSTRP,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MI_DOWN,                   /**/                   XXXXXXX, MI_005,  MI_006,  MI_007,  MI_008, XXXXXXX, XXXXXXX, \
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QWERTY,  /**/ XXXXXXX, XXXXXXX, MI_L12,  MI_001,  MI_002,  MI_003,  MI_004, XXXXXXX, XXXXXXX, \
+                                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          /**/          XXXXXXX, MI_T_DN, XXXXXXX, MI_T_UP, XXXXXXX \
       ),
 };
 
